@@ -1,3 +1,5 @@
+url: http://rosalind.info/problems/fibd/
+
 months = 6
 lifespan = 3
 
