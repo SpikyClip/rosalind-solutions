@@ -1,56 +1,65 @@
-#Given At most 10 DNA strings in FASTA format (of length at most 1 kbp each).
+# url: http://rosalind.info/problems/gc/
 
-#Return: The ID of the string having the highest GC-content, followed by the 
-#GC-content of that string. Rosalind allows for a default error of 0.001 in all 
-#decimal answers unless otherwise stated; please see the note on absolute error 
-#below.
+# Problem
 
-inputfile = '6_computing_GC_content_input.txt'
+# The GC-content of a DNA string is given by the percentage of symbols in
+# the string that are 'C' or 'G'. For example, the GC-content of "AGCTATAG"
+# is 37.5%. Note that the reverse complement of any DNA string has the same
+# GC-content.
 
-#empty dictionary for FASTA: sequence key-pairs
-fasta_dict = {}
+# DNA strings must be labeled when they are consolidated into a database.
+# A commonly used method of string labeling is called FASTA format. In
+# this format, the string is introduced by a line that begins with '>',
+# followed by some labeling information. Subsequent lines contain the
+# string itself; the first line to begin with '>' indicates the label of
+# the next string.
 
-def GC_content(fasta_dict):
+# In Rosalind's implementation, a string in FASTA format will be labeled
+# by the ID "Rosalind_xxxx", where "xxxx" denotes a four-digit code between
+# 0000 and 9999.
 
-#placeholders to keep track of the current id of the max GC fasta string
-    fasta_max = ''
-    GC_max = 0
+# Given: At most 10 DNA strings in FASTA format (of length at most 1 kbp
+# each).
 
-#calculates the gc percentage for each sequence and prints it
-    for fasta_id, seq in fasta_dict.items():
-        gc_percentage = (seq.count('G') + seq.count('C')) / len(seq) * 100
-        message = f"The GC percentage of {fasta_id} is {round(gc_percentage, 6)}%"
-        print(message)
-
-#if the GC percentage calculated is higher than any previously calculated, save
-#value over previous max
-        if gc_percentage > GC_max:
-            GC_max = gc_percentage
-            fasta_max = fasta_id
-
-    message = f"\nThe ID of the string with the highest GC is:\n\n{fasta_max}"
-    "\n{round(GC_max, 6)}%"
-    print(message)
+# Return: The ID of the string having the highest GC-content, followed by
+# the GC-content of that string. Rosalind allows for a default error of
+# 0.001 in all decimal answers unless otherwise stated; please see the note
+# on absolute error below.
 
 
-#opens inputfile and stores lines as a list of strings
-with open(inputfile) as file_object:
-    lines = file_object.readlines()
+def fasta_to_dict(file):
+    """Parses file object and returns dictionary of ID keys and seq values"""
+    seq_dict = dict()
+    # opens file as list of lines without \n chars
+    line_list = file.read().splitlines()
 
-#strips newline characters
-for line in lines:
-    line = line.strip()
+    # parses line_list, storing names and seq in seq_dict
+    for line in line_list:
+        if line.startswith(">"):
+            seq_name = line.lstrip(">")
+            seq_dict[seq_name] = ""
+        else:
+            seq_dict[seq_name] += line.upper()
 
-#detects if the line contains the FASTA ID: if it does it creates a new key-pair
-#in the dictionary. fasta_id temporarily stores the key for the next else statement
-    if line[0] == '>':
-        fasta_id = line.strip('>')
-        fasta_dict[fasta_id] = ''
+    return seq_dict
 
-#Picks up the lines after the fasta_id, and assigns its value additively to the
-#fasta_id key. += is necessary considering the sequence lines are spread across
-#multiple lines rather than a single long line.
-    else:
-        fasta_dict[fasta_id] += line
 
-GC_content(fasta_dict)
+def GC_percent(seq):
+    """Returns GC content as a percentage to 3 decimal places"""
+    gc_count = seq.count("G") + seq.count("C")
+    gc_percent = (gc_count / len(seq)) * 100
+
+    return round(gc_percent, 3)
+
+
+def max_GC(seq_dict):
+    max_id = max(seq_dict, key=lambda id: GC_percent(seq_dict[id]))
+    return max_id, GC_percent(seq_dict[max_id])
+
+
+if __name__ == "__main__":
+    file1, file2 = "inputs/005_GC_input.txt", "outputs/005_GC_output.txt"
+    with open(file1, "r") as f1, open(file2, "w") as f2:
+        seq_dict = fasta_to_dict(f1)
+        id, gc_percent = max_GC(seq_dict)
+        f2.write(f"{id}\n{gc_percent}")

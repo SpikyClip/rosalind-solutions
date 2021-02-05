@@ -1,9 +1,27 @@
-with open('2_transcribing_dna_into_rna_input.txt','r') as input_file:
-    dna_sequence = input_file.read()
+# url: http://rosalind.info/problems/rna/
 
-rna_sequence = dna_sequence.replace('T','U')
+# Problem
 
-with open('2_transcribing_dna_into_rna_output.txt','w') as output_file:
-    output_file.write(rna_sequence)
+# An RNA string is a string formed from the alphabet containing 'A', 'C',
+# 'G', and 'U'.
 
-print(rna_sequence)
+# Given a DNA string t corresponding to a coding strand, its transcribed
+# RNA string u is formed by replacing all occurrences of 'T' in t with
+# 'U' in u.
+
+# Given: A DNA string t having length at most 1000 nt.
+
+# Return: The transcribed RNA string of t.
+
+
+def dna_to_rna(dna_seq):
+    """Transcribes a DNA string to RNA"""
+    rna_seq = dna_seq.replace("T", "U")
+    return rna_seq
+
+
+if __name__ == "__main__":
+    file1, file2 = "inputs/002_RNA_input.txt", "outputs/002_RNA_output.txt"
+    with open(file1, "r") as f1, open(file2, "w") as f2:
+        dna_seq = f1.read().strip()
+        f2.write(dna_to_rna(dna_seq))

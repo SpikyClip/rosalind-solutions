@@ -1,26 +1,28 @@
-with open('3_complementing_a_strand_of_dna_input.txt','r') as input_file:
-    primary_dna_sequence = input_file.read()
-print(primary_dna_sequence)
-complementary_dna_sequence = ''
+# url: http://rosalind.info/problems/revc/
 
-for nucleotide in primary_dna_sequence:
-    if nucleotide == 'A':
-        complementary_dna_sequence += 'T'
-    elif nucleotide == 'T':
-        complementary_dna_sequence += 'A'
-    elif nucleotide == 'C':
-        complementary_dna_sequence += 'G'
-    elif nucleotide == 'G':
-        complementary_dna_sequence += 'C'
+# Problem
 
-complementary_dna_sequence = complementary_dna_sequence[::-1]
+# In DNA strings, symbols 'A' and 'T' are complements of each other, as
+# are 'C' and 'G'.
 
-with open('3_complementing_a_strand_of_dna_output.txt', 'w') as output_file:
-    output_file.write(complementary_dna_sequence)
+# The reverse complement of a DNA string s is the string sc formed by
+# reversing the symbols of s, then taking the complement of each symbol
+# (e.g., the reverse complement of "GTCA" is "TGAC").
 
-#Alternatively
+# Given: A DNA string s of length at most 1000 bp.
 
-translation_table = str.maketrans('ATCG','TAGC')
-complementary_dna_sequence_1 = primary_dna_sequence[::-1].translate(translation_table)
+# Return: The reverse complement sc of s.
 
-print(complementary_dna_sequence_1)
+
+def rev_complement(dna_seq):
+    """Returns the reverse complement of dna_seq as a string"""
+    transl_tbl = str.maketrans("ATCG", "TAGC")
+    rev_compl_seq = dna_seq[::-1].translate(transl_tbl)
+    return rev_compl_seq
+
+
+if __name__ == "__main__":
+    file1, file2 = "inputs/003_REVC_input.txt", "outputs/003_REVC_output.txt"
+    with open(file1, "r") as f1, open(file2, "w") as f2:
+        dna_seq = f1.read().strip()
+        f2.write(rev_complement(dna_seq))
