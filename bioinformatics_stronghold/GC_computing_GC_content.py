@@ -58,7 +58,7 @@ def max_GC(seq_dict):
 
 
 if __name__ == "__main__":
-    file1, file2 = "inputs/005_GC_input.txt", "outputs/005_GC_output.txt"
+    file1, file2 = "inputs/GC_input.txt", "outputs/GC_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
         seq_dict = fasta_to_dict(f1)
         id, gc_percent = max_GC(seq_dict)

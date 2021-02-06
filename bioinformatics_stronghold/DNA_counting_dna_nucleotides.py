@@ -34,7 +34,7 @@ def nucleotide_count(dna_seq):
 
 
 if __name__ == "__main__":
-    file1, file2 = "inputs/001_DNA_input.txt", "outputs/001_DNA_output.txt"
+    file1, file2 = "inputs/DNA_input.txt", "outputs/DNA_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
         dna_seq = f1.read().strip()
         f2.write(nucleotide_count(dna_seq))

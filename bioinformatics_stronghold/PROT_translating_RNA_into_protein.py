@@ -45,9 +45,9 @@ def codon_to_prot(codons, codon_table):
 
 if __name__ == "__main__":
     file1, file2, file3 = (
-        "inputs/000_RNA_codon_table.txt",
-        "inputs/008_PROT_input.txt",
-        "outputs/008_PROT_output.txt",
+        "inputs/RNA_codon_table.txt",
+        "inputs/PROT_input.txt",
+        "outputs/PROT_output.txt",
     )
 
     with open(file1, "r") as f1, open(file2, "r") as f2, open(file3, "w") as f3:

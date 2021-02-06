@@ -22,7 +22,7 @@ def rev_complement(dna_seq):
 
 
 if __name__ == "__main__":
-    file1, file2 = "inputs/003_REVC_input.txt", "outputs/003_REVC_output.txt"
+    file1, file2 = "inputs/REVC_input.txt", "outputs/REVC_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
         dna_seq = f1.read().strip()
         f2.write(rev_complement(dna_seq))

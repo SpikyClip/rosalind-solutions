@@ -19,7 +19,7 @@ def hamdist(seq1, seq2):
 
 
 if __name__ == "__main__":
-    file1, file2 = "inputs/006_HAMM_input.txt", "outputs/006_HAMM_output.txt"
+    file1, file2 = "inputs/HAMM_input.txt", "outputs/HAMM_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
         seq1, seq2 = f1.read().splitlines()
         f2.write(str(hamdist(seq1, seq2)))

@@ -39,7 +39,7 @@ def substr_index(string, substring):
 
 
 if __name__ == "__main__":
-    file1, file2 = "inputs/009_SUBS_input.txt", "outputs/009_SUBS_output.txt"
+    file1, file2 = "inputs/SUBS_input.txt", "outputs/SUBS_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
         string, substring = f1.read().splitlines()
         # adds +1 to indice to meet rosalind requirements

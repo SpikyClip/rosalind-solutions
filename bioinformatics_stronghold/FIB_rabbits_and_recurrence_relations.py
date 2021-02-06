@@ -48,7 +48,7 @@ def rabbit_recursive(months, litter_size):
 
 
 if __name__ == "__main__":
-    file1, file2 = "inputs/004_FIB_input.txt", "outputs/004_FIB_output.txt"
+    file1, file2 = "inputs/FIB_input.txt", "outputs/FIB_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
         # splits string into list, converts to int, then tuple
         months, litter_size = tuple(map(int, f1.read().split()))

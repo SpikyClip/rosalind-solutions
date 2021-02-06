@@ -21,7 +21,7 @@ def dna_to_rna(dna_seq):
 
 
 if __name__ == "__main__":
-    file1, file2 = "inputs/002_RNA_input.txt", "outputs/002_RNA_output.txt"
+    file1, file2 = "inputs/RNA_input.txt", "outputs/RNA_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
         dna_seq = f1.read().strip()
         f2.write(dna_to_rna(dna_seq))

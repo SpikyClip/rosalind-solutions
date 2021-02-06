@@ -39,7 +39,7 @@ def cons_and_profile(strings):
 
 
 if __name__ == "__main__":
-    file1, file2 = "inputs/010_CONS_input.txt", "outputs/010_CONS_output.txt"
+    file1, file2 = "inputs/CONS_input.txt", "outputs/CONS_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
         seq_dict = fasta_to_dict(f1)
         cons_string, profile_matrix = cons_and_profile(seq_dict.values())
