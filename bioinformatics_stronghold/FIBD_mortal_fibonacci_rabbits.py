@@ -1,39 +1,55 @@
-url: http://rosalind.info/problems/fibd/
+# url: http://rosalind.info/problems/fibd/
 
-months = 6
-lifespan = 3
+# Problem
 
-# Initialises a list with positions for each possible 'age' for a given lifespan
-# this list will store the rabbits
-# list is lifespan + 1 long, as rabbits die in the month after their lifespan
-rabbits = [month*0 for month in range(lifespan+1)]
+# Recall the definition of the Fibonacci numbers from “Rabbits and
+# Recurrence Relations”, which followed the recurrence relation
+# Fn=Fn−1+Fn−2 and assumed that each pair of rabbits reaches maturity in
+# one month and produces a single pair of offspring (one male, one female)
+# each subsequent month.
 
-#iterates through the months
-for month in range(months):
+# Our aim is to somehow modify this recurrence relation to achieve a dynamic
+# programming solution in the case that all rabbits die out after a fixed
+# number of months. See Figure 4 for a depiction of a rabbit tree in which
+# rabbits live for three months (meaning that they reproduce only twice
+# before dying).
 
-#supplies the initial newborn rabbit for the first month
-    if month == 0:
-        monthly_births = 1
+# Given: Positive integers n≤100 and m≤20.
 
-#in the second month, no rabbits are born as the first pair has only just matured
-    elif month == 1:
-        monthly_births = 0
+# Return: The total number of pairs of rabbits that will remain after the
+# n-th month if all rabbits live for m months.
 
-#in the third month and beyond, breeding occurs. The monthly births are the sum
-#of rabbits in the list excluding the newborns rabbits[-1] and the rabbits about
-#to die rabbits[0]
 
-    elif month > 1:
-        monthly_births = sum(rabbits[1:-1])
+def mortal_rabbit_recursive(months, lifespan):
+    """
+    return total no. of rabbit pairs after n months given adult pairs
+    produce 1 pair of newborns each month, and die after lifespan
+    """
+    # generates adult.pop() buffer given a specified lifespan
+    adults = [0 for i in range(lifespan)]
 
-    monthly_deaths = rabbits.pop(0)
-    rabbits.append(monthly_births)
+    for month in range(1, months + 1):
+        # supplies initial newborn
+        if month < 2:
+            newborns = 1
+        else:
+            # Newborns turn into adults and are appended, but the newborn
+            # of this generation come from the adults of the previous
+            # hence adults[:-1]
+            adults.append(newborns)
+            newborns = sum(adults[:-1])
+        # the adult list is popped from the front every month. The
+        # lifespan buffer of zeroes ensures deaths don't come into effect
+        # until lifespan no. of months has elapsed
+        adults.pop(0)
 
-    message = f'''{(str(month+1)+ ' month').center(80, '-')}
+    return sum(adults) + newborns
 
-Monthly Deaths: {monthly_deaths}
-Monthly Births: {monthly_births}
-Current Rabbits by Age (Oldest to Youngest): {rabbits[1:]}
-Total Rabbits: {sum(rabbits[1:])}
-'''
-    print(message)
+
+if __name__ == "__main__":
+    file1, file2 = "inputs/FIBD_input.txt", "outputs/FIBD_output.txt"
+    with open(file1, "r") as f1, open(file2, "w") as f2:
+        # test = map(int, f1.read().split())
+        # print(test)
+        months, lifespan = map(int, f1.read().split())
+        f2.write(str(mortal_rabbit_recursive(months, lifespan)))
