@@ -27,11 +27,11 @@
 # on absolute error below.
 
 
-def fasta_to_dict(file):
-    """Parses file object and returns dictionary of ID keys and seq values"""
+def fasta_to_dict(str):
+    """Parses string and returns dictionary of ID keys and seq values"""
     seq_dict = dict()
-    # opens file as list of lines without \n chars
-    line_list = file.read().splitlines()
+    # splits string into lines without \n
+    line_list = str.splitlines()
 
     # parses line_list, storing names and seq in seq_dict
     for line in line_list:
@@ -60,6 +60,6 @@ def max_GC(seq_dict):
 if __name__ == "__main__":
     file1, file2 = "inputs/GC_input.txt", "outputs/GC_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
-        seq_dict = fasta_to_dict(f1)
+        seq_dict = fasta_to_dict(f1.read())
         id, gc_percent = max_GC(seq_dict)
         f2.write(f"{id}\n{gc_percent}")

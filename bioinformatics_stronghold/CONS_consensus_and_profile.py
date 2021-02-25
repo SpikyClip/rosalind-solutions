@@ -41,7 +41,7 @@ def cons_and_profile(strings):
 if __name__ == "__main__":
     file1, file2 = "inputs/CONS_input.txt", "outputs/CONS_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
-        seq_dict = fasta_to_dict(f1)
+        seq_dict = fasta_to_dict(f1.read())
         cons_string, profile_matrix = cons_and_profile(seq_dict.values())
         # insert colons into index
         profile_matrix.index = [i + ":" for i in profile_matrix.index]

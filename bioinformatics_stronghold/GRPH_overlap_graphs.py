@@ -24,7 +24,7 @@ def adj_list(seq_dict, k):
 if __name__ == "__main__":
     file1, file2 = "inputs/GRPH_input.txt", "outputs/GRPH_output.txt"
     with open(file1, "r") as f1, open(file2, "w") as f2:
-        seq_dict = fasta_to_dict(f1)
+        seq_dict = fasta_to_dict(f1.read())
         adj_list = adj_list(seq_dict, 3)
         for s, t in adj_list:
             f2.write(f"{s} {t}\n")
