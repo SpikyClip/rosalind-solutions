@@ -20,27 +20,7 @@
 # solutions exist, you may return any single solution.)
 
 from itertools import combinations
-
-
-def fasta_to_dict(filename):
-    """Converts fasta format from txt to dictionary"""
-    seq_dict = dict()
-    with open(filename) as f:
-        # iterates by line in file for efficiency
-        for line in f:
-            # identifies fasta titles by '>' char, stripping '>' and
-            # storing as seq_name to allow later reference to dict when
-            # concatenating sequence.
-            # seq_name also stored as key in dictionary with empty string
-            # to allow for concatenation later
-            if line.startswith(">"):
-                seq_name = line.strip(">\n")
-                seq_dict[seq_name] = ""
-            # concatenates seq to current seq_name value in dict
-            else:
-                seq_dict[seq_name] += line.strip()
-
-    return seq_dict
+from common import fasta_to_dict
 
 
 def longest_common_motif(seq_list):
@@ -96,4 +76,8 @@ def main(filename):
 
 
 if __name__ == "__main__":
-    main("LCSM_finding_shared_motif.txt")
+    file1, file2 = "inputs/LCSM_input.txt", "outputs/LCSM_output.txt"
+    with open(file1, "r") as f1, open(file2, "w") as f2:
+        seq_list = list(fasta_to_dict(f1.read()).values())
+        motif_list = longest_common_motif(seq_list)
+        f2.write(motif_list[0])
