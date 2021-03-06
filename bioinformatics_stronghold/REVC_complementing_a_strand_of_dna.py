@@ -13,12 +13,7 @@
 
 # Return: The reverse complement sc of s.
 
-
-def rev_complement(dna_seq):
-    """Returns the reverse complement of dna_seq as a string"""
-    transl_tbl = str.maketrans("ATCG", "TAGC")
-    rev_compl_seq = dna_seq[::-1].translate(transl_tbl)
-    return rev_compl_seq
+from common import rev_complement
 
 
 if __name__ == "__main__":

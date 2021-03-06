@@ -26,22 +26,7 @@
 # 0.001 in all decimal answers unless otherwise stated; please see the note
 # on absolute error below.
 
-
-def fasta_to_dict(str):
-    """Parses string and returns dictionary of ID keys and seq values"""
-    seq_dict = dict()
-    # splits string into lines without \n
-    line_list = str.splitlines()
-
-    # parses line_list, storing names and seq in seq_dict
-    for line in line_list:
-        if line.startswith(">"):
-            seq_name = line.lstrip(">")
-            seq_dict[seq_name] = ""
-        else:
-            seq_dict[seq_name] += line.upper()
-
-    return seq_dict
+from common import fasta_to_dict
 
 
 def GC_percent(seq):

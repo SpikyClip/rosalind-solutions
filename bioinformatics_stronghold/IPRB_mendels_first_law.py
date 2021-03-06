@@ -25,14 +25,26 @@ test
 print(possible_children)
 
 
-# AA, Aa, aa = 19, 20, 15
-# total = AA + Aa + aa
+def prob_dom_offspring(AA, Aa, aa):
+    total = AA + Aa + aa
+    # probability of choosing both homozygous recessive parents ,
+    # followed by recessive offspring probability
+    P_aaaa = (aa / total) * ((aa - 1) / (total - 1))
+    P_aa_aaaa = 1
+    # probability of choosing one homozygous recessive and one
+    # heterozygous parent, followed by recessive offspring probability
+    P_aaAa = (aa / total) * (Aa / (total - 1)) + (Aa / total) * (
+        aa / (total - 1)
+    )
+    P_aa_aaAa = 2 / 4
+    # probability of choosing both heterozygous parents , followed by
+    # recessive offspring probability
+    P_AaAa = (Aa / total) * ((Aa - 1) / (total - 1))
+    P_aa_AaAa = 1 / 4
 
-# aa_aa = (aa / total) * ((aa - 1) / (total - 1))
-# aa_Aa = (aa / total) * (Aa / (total - 1)) + (Aa / total) * (
-#     aa / (total - 1)
-# )
-# Aa_Aa = (Aa / total) * ((Aa - 1) / (total - 1))
+    parent_prob = [P_aaaa, P_aaAa, P_AaAa]
+    offspring_prob = [P_aa_aaaa, P_aa_aaAa, P_aa_AaAa]
+
 
 # total_recessive_children = aa_aa + (aa_Aa * 0.5) + (Aa_Aa * 0.25)
 # total_dominant_children = 1 - total_recessive_children

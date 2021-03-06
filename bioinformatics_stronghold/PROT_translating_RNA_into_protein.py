@@ -17,7 +17,7 @@
 # Return: The protein string encoded by s.
 
 
-def get_codons(file):
+def get_codon_table(file):
     """Returns dict of protein: codons from codon.txt"""
     content = file.read().split()
     codon, prot = content[0::2], content[1::2]
@@ -28,10 +28,9 @@ def get_codons(file):
     return codon_table
 
 
-def str_to_codons(string):
+def str_to_codons(seq):
     """Splits a string of codons into a list of codons"""
-    n = 3
-    codons = [string[i : i + n] for i in range(0, len(string), n)]
+    codons = [seq[i : i + 3] for i in range(0, len(seq), 3)]
     return codons
 
 
@@ -51,6 +50,8 @@ if __name__ == "__main__":
     )
 
     with open(file1, "r") as f1, open(file2, "r") as f2, open(file3, "w") as f3:
-        codon_table, codons = get_codons(f1), str_to_codons(f2.read().strip())
+        codon_table, codons = get_codon_table(f1), str_to_codons(
+            f2.read().strip()
+        )
         prot = codon_to_prot(codons, codon_table)
         f3.write(prot)
