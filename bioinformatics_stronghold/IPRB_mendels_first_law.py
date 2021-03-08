@@ -2,7 +2,7 @@
 
 # Problem
 
-# Given: Three positive integers k, m, and n, representing a totalulation
+# Given: Three positive integers k, m, and n, representing a total population
 # containing k+m+n organisms: k individuals are homozygous dominant for a
 # factor, m are heterozygous, and n are homozygous recessive.
 
@@ -10,22 +10,13 @@
 # produce an individual possessing a dominant allele (and thus displaying
 # the dominant phenotype). Assume that any two organisms can mate.
 
-from collections import Counter
-from itertools import product, combinations, combinations_with_replacement
-
-genotypes = [["A", "A"], ["A", "a"], ["a", "a"]]
-
-possible_pairs = combinations_with_replacement(genotypes, 2)
-possible_children = Counter()
-for mother, father in possible_pairs:
-    for child in product(mother, father):
-        print(child)
-
-test
-print(possible_children)
-
 
 def prob_dom_offspring(AA, Aa, aa):
+    """
+    Given number of homozygous dominant, heterozygous, and recessive
+    parents in a population, return the probability of two randomly selected
+    parents producing a dominant child
+    """
     total = AA + Aa + aa
     # probability of choosing both homozygous recessive parents ,
     # followed by recessive offspring probability
@@ -45,8 +36,18 @@ def prob_dom_offspring(AA, Aa, aa):
     parent_prob = [P_aaaa, P_aaAa, P_AaAa]
     offspring_prob = [P_aa_aaaa, P_aa_aaAa, P_aa_AaAa]
 
+    total_prob_aa_children = 0
 
-# total_recessive_children = aa_aa + (aa_Aa * 0.5) + (Aa_Aa * 0.25)
-# total_dominant_children = 1 - total_recessive_children
+    for P_parent, P_offspring in zip(parent_prob, offspring_prob):
+        total_prob_aa_children += P_parent * P_offspring
 
-# print(total_dominant_children)
+    total_prob_AA_children = 1 - total_prob_aa_children
+
+    return round(total_prob_AA_children, 5)
+
+
+if __name__ == "__main__":
+    file1, file2 = "inputs/IPRB_input.txt", "outputs/IPRB_output.txt"
+    with open(file1, "r") as f1, open(file2, "w") as f2:
+        AA, Aa, aa = [int(num) for num in f1.read().split()]
+        f2.write(str(prob_dom_offspring(AA, Aa, aa)))
