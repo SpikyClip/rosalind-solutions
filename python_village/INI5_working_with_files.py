@@ -1,20 +1,14 @@
-#Given: A file containing at most 1000 lines.
-#Return: A file containing all the even-numbered lines from the original file. 
-#Assume 1-based numbering of lines.
+# url: http://rosalind.info/problems/ini5/
 
-#Opens input file
-with open('rosalind_ini5.txt', 'r') as input_file:
-    contents = input_file.readlines()
+# Problem
 
-even_lines = []
+# Given: A file containing at most 1000 lines.
+# Return: A file containing all the even-numbered lines from the original file.
+# Assume 1-based numbering of lines.
 
-#returns index of each line, if index is not even, its 1 base number is even
-#appends even line to empty list
-for line in contents:
-    if contents.index(line) % 2 != 0:
-        even_lines.append(line)
 
-#writes even lines to output file
-with open('output.txt', 'w') as output_file:
-    for line in even_lines:
-        output_file.write(str(line))
+if __name__ == "__main__":
+    file1, file2 = "inputs/INI5_input.txt", "outputs/INI5_output.txt"
+    with open(file1, "r") as f1, open(file2, "w") as f2:
+        even_lines = [line for line in f1.readlines()[1::2]]
+        f2.write("".join(even_lines))

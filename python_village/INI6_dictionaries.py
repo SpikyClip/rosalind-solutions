@@ -1,9 +1,28 @@
-string = "When I find myself in times of trouble Mother Mary comes to me Speaking words of wisdom let it be And in my hour of darkness she is standing right in front of me Speaking words of wisdom let it be Let it be let it be let it be let it be Whisper words of wisdom let it be And when the broken hearted people living in the world agree There will be an answer let it be For though they may be parted there is still a chance that they will see There will be an answer let it be Let it be let it be let it be let it be There will be an answer let it be Let it be let it be let it be let it be Whisper words of wisdom let it be Let it be let it be let it be let it be Whisper words of wisdom let it be And when the night is cloudy there is still a light that shines on me Shine until tomorrow let it be I wake up to the sound of music Mother Mary comes to me Speaking words of wisdom let it be Let it be let it be let it be yeah let it be There will be an answer let it be Let it be let it be let it be yeah let it be Whisper words of wisdom let it be"
-string_list = string.split()
-dictionary = {}
-for word in string_list:
-    dictionary[word] = string_list.count(word)
+# url: http://rosalind.info/problems/ini6/
 
-for word, occurrences in dictionary.items():
-    output = f"{word} {occurrences}"
-    print(output)
+# Problem
+
+# Given: A string s of length at most 10000 letters.
+
+# Return: The number of occurrences of each word in s, where words are
+# separated by spaces. Words are case-sensitive, and the lines in the
+# output can be in any order.
+
+
+def word_count(string):
+    unique_words = set(string.split())
+    count_dict = {word: string.count(word) for word in unique_words}
+    return count_dict
+
+
+if __name__ == "__main__":
+    file1, file2 = "inputs/INI6_input.txt", "outputs/INI6_output.txt"
+    with open(file1, "r") as f1, open(file2, "w") as f2:
+        string = f1.read()
+        count_dict = word_count(string)
+
+        output = list()
+        for word, count in count_dict.items():
+            output.append(f"{word} {count}\n")
+
+        f2.write("".join(output))
